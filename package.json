@@ -1,0 +1,14 @@
+{
+  "name": "freeport-shore-excursion",
+  "private": true,
+  "scripts": {
+    "build": "python3 scripts/build-freeport-site.py",
+    "images": "python3 scripts/fetch-freeport-images.py",
+    "check": "python3 scripts/check-freeport-site.py",
+    "deploy": "wrangler deploy",
+    "preview": "python3 -m http.server 8910"
+  },
+  "devDependencies": {
+    "wrangler": "^4.94.0"
+  }
+}
