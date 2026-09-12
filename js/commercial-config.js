@@ -10,7 +10,7 @@ window.FPO_COMMERCIAL = {
   bookingsApiUrl: "https://freeport-bookings-prod.dark-violet-8d91.workers.dev",
   email: "hello@freeportshoreexcursion.com",
   siteName: "Freeport Shore Excursions",
-  defaultPublicBookingStatus: "PRODUCTION_READY_LOCKED",
+  defaultPublicBookingStatus: "BOOKING_ENABLED",
   cancellation:
     "Free cancellation outside 14 days before your excursion. From the 14th day before your excursion, bookings are non-refundable.",
   paymentNotConfirmation:
@@ -38,7 +38,7 @@ window.FPO_COMMERCIAL = {
       guestModel: "ages3_plus_infant",
       durationLabel: "4 hours",
       maxGuests: 10,
-      publicBookingStatus: "PRODUCTION_READY_LOCKED",
+      publicBookingStatus: "BOOKING_ENABLED",
       displayPrice: "Participants age 3+ $69 · Children age 0–2 free",
     },
   },
