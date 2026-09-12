@@ -1,23 +1,22 @@
 # Freeport Shore Excursion
 
-Cruise-passenger planning guide for Freeport, Grand Bahama shore excursions.
+World 2.0 cruise-passenger planning guide for Freeport, Grand Bahama.
+
+Domain: https://freeportshoreexcursion.com
 
 ## Development
 
 ```bash
 npm install
 npm run build
-npm run images
 npm run check
 npm run preview
 ```
 
-Open http://localhost:8910
-
-## Deploy to Cloudflare
+## Deploy
 
 ```bash
-npm run build && npm run images && npm run check && ./deploy.sh
+npm run deploy
 ```
 
-Domain: https://freeportshoreexcursion.com
+Phase 19B: growth rebuild — commerce deferred.

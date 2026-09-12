@@ -1,0 +1,77 @@
+{
+  "domain": "freeportshoreexcursion.com",
+  "apex": "https://freeportshoreexcursion.com",
+  "phase": "19B",
+  "routes": [
+    {
+      "path": "/",
+      "file": "index.html",
+      "kind": "home"
+    },
+    {
+      "path": "/best-freeport-shore-excursions",
+      "file": "best-freeport-shore-excursions/index.html",
+      "kind": "hub"
+    },
+    {
+      "path": "/one-day-in-freeport-from-a-cruise-ship",
+      "file": "one-day-in-freeport-from-a-cruise-ship/index.html",
+      "kind": "guide"
+    },
+    {
+      "path": "/freeport-cruise-port-guide",
+      "file": "freeport-cruise-port-guide/index.html",
+      "kind": "guide"
+    },
+    {
+      "path": "/freeport-beach-excursions",
+      "file": "freeport-beach-excursions/index.html",
+      "kind": "attraction"
+    },
+    {
+      "path": "/freeport-snorkelling-excursions",
+      "file": "freeport-snorkelling-excursions/index.html",
+      "kind": "attraction"
+    },
+    {
+      "path": "/freeport-nature-garden-tours",
+      "file": "freeport-nature-garden-tours/index.html",
+      "kind": "attraction"
+    },
+    {
+      "path": "/freeport-dolphin-encounters",
+      "file": "freeport-dolphin-encounters/index.html",
+      "kind": "attraction"
+    },
+    {
+      "path": "/freeport-faq",
+      "file": "freeport-faq/index.html",
+      "kind": "guide"
+    },
+    {
+      "path": "/contact",
+      "file": "contact/index.html",
+      "kind": "trust"
+    },
+    {
+      "path": "/about",
+      "file": "about/index.html",
+      "kind": "trust"
+    },
+    {
+      "path": "/privacy",
+      "file": "privacy/index.html",
+      "kind": "trust"
+    },
+    {
+      "path": "/terms",
+      "file": "terms/index.html",
+      "kind": "trust"
+    },
+    {
+      "path": "/methodology",
+      "file": "methodology/index.html",
+      "kind": "trust"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+node_modules/
+.wrangler/
+.dev.vars
+.env
+.env.*
+__pycache__/
+*.pyc
+.css-cache/
+css/utilities.css
+.DS_Store

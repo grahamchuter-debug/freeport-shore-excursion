@@ -1,14 +1,19 @@
 {
   "name": "freeport-shore-excursion",
   "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
-    "build": "python3 scripts/build-freeport-site.py",
-    "images": "python3 scripts/fetch-freeport-images.py",
-    "check": "python3 scripts/check-freeport-site.py",
-    "deploy": "wrangler deploy",
-    "preview": "python3 -m http.server 8910"
+    "css": "tailwindcss -i ./css/input.css -o ./css/utilities.css --minify && cat css/utilities.css css/site.components.css > css/site.css && cat css/a11y.css >> css/site.css",
+    "build": "npm run css && python3 scripts/build-freeport-site.py",
+    "check": "python3 scripts/qa-freeport-site.py",
+    "deploy": "npm run build && npm run check && wrangler deploy",
+    "preview": "python3 -m http.server 8919"
   },
   "devDependencies": {
+    "tailwindcss": "3.4.17",
     "wrangler": "^4.94.0"
   }
 }
