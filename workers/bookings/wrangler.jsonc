@@ -1,0 +1,36 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "freeport-bookings-test",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": {
+    "enabled": true
+  },
+  "dev": {
+    "ip": "localhost",
+    "port": 8796,
+    "local_protocol": "http"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "freeport-bookings-test",
+      "database_id": "55a8a6ea-36e5-46b9-91cc-c5d2b7482d64",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "vars": {
+    "PAYMENTS_MODE": "test",
+    "BOOKINGS_ENABLED": "true",
+    "EMAIL_SENDING_ENABLED": "false",
+    "EMAIL_FROM": "bookings@notifications.wowatour.com",
+    "EMAIL_FROM_NAME": "Freeport Shore Excursions",
+    "EMAIL_REPLY_TO": "hello@freeportshoreexcursion.com",
+    "CORS_ALLOWED_ORIGINS": "http://localhost:8919,http://127.0.0.1:8919,https://freeportshoreexcursion.com,https://www.freeportshoreexcursion.com",
+    "SITE_BASE_URL": "https://freeportshoreexcursion.com",
+    "ORIGINATING_SITE": "freeportshoreexcursion.com",
+    "ORIGINATING_PORT": "Freeport, Grand Bahama",
+    "OPERATOR_PORTAL_BASE_URL": "https://freeport-bookings-test.dark-violet-8d91.workers.dev"
+  }
+}

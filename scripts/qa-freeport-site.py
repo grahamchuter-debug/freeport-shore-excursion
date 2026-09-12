@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""QA checks for Freeport Shore Excursion World 2.0 (Phase 19B)."""
+"""QA checks for Freeport Shore Excursion World 2.0 (Phase 19D)."""
 from __future__ import annotations
 
 import re
@@ -20,7 +20,7 @@ FORBIDDEN_LEAKS = [
     "CAFPBLUE",
     "CAFPDOLPHIN",
     "stripe.com",
-    "/book/",
+    "SEG_MANUAL",
     "Return To Ship On Time",
     "return to ship on time",
     "60–90 min",
@@ -52,8 +52,12 @@ REQUIRED_FILES = [
     "sitemap.xml",
     "css/site.css",
     "js/nav.js",
+    "js/commercial-config.js",
+    "js/booking.js",
     "worker.js",
     "wrangler.jsonc",
+    "book/garden-of-the-groves-city-tour/index.html",
+    "book/garden-of-the-groves-city-tour/received/index.html",
     "best-freeport-shore-excursions/index.html",
     "one-day-in-freeport-from-a-cruise-ship/index.html",
     "freeport-cruise-port-guide/index.html",
@@ -76,6 +80,7 @@ PROTECTED_CANONICALS = {
         f"{APEX}/one-day-in-freeport-from-a-cruise-ship"
     ),
     "freeport-cruise-port-guide/index.html": f"{APEX}/freeport-cruise-port-guide",
+    "book/garden-of-the-groves-city-tour/index.html": f"{APEX}/book/garden-of-the-groves-city-tour",
 }
 
 
@@ -86,11 +91,10 @@ def errors() -> list[str]:
         if not (ROOT / rel).exists():
             errs.append(f"missing {rel}")
 
-    # Quarantine must not be referenced
     quarantine = list((ROOT / "images" / "quarantine").glob("*")) if (ROOT / "images" / "quarantine").exists() else []
     qnames = {p.name for p in quarantine}
     for html in ROOT.rglob("*.html"):
-        if any("_legacy" in part for part in html.parts) or "node_modules" in html.parts or ".wrangler" in html.parts:
+        if any(part in html.parts for part in ("_legacy_phase19a", "node_modules", ".wrangler", "workers")):
             continue
         text = html.read_text(encoding="utf-8", errors="ignore")
         for name in qnames:
@@ -102,10 +106,8 @@ def errors() -> list[str]:
                 errs.append(f"leak '{leak}' in {html.relative_to(ROOT)}")
 
         lower = text.lower()
-        # Allow "nassau" only if somehow — Freeport should not mention other destinations
         for dest in FORBIDDEN_DEST:
             if dest in lower and html.name != "404.html":
-                # methodology may mention equity generally — still ban destination names
                 errs.append(f"cross-destination '{dest}' in {html.relative_to(ROOT)}")
 
         titles = re.findall(r"<title[^>]*>(.*?)</title>", text, re.I | re.S)
@@ -132,7 +134,6 @@ def errors() -> list[str]:
         elif m.group(1) != canon:
             errs.append(f"bad canonical in {rel}: {m.group(1)} != {canon}")
 
-    # Sitemap: no .html locs
     sm = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
     if ".html" in sm:
         errs.append("sitemap contains .html URLs")
@@ -150,19 +151,35 @@ def errors() -> list[str]:
     if f"{APEX}/sitemap.xml" not in robots:
         errs.append("robots missing sitemap")
 
-    # One-day must be in nav
     home = (ROOT / "index.html").read_text(encoding="utf-8")
     if "/one-day-in-freeport-from-a-cruise-ship" not in home:
         errs.append("one-day not linked from homepage")
     if 'data-nav="oneday"' not in home:
         errs.append("one-day not in primary nav")
+    if "/book/garden-of-the-groves-city-tour" not in home:
+        errs.append("homepage missing Garden RTB CTA")
 
-    # Ben's Cave / Blue Hole separation language on snorkel page
+    for rel in (
+        "best-freeport-shore-excursions/index.html",
+        "one-day-in-freeport-from-a-cruise-ship/index.html",
+        "freeport-nature-garden-tours/index.html",
+    ):
+        text = (ROOT / rel).read_text(encoding="utf-8")
+        if "/book/garden-of-the-groves-city-tour" not in text:
+            errs.append(f"{rel} missing Garden RTB CTA")
+
+    book = (ROOT / "book/garden-of-the-groves-city-tour/index.html").read_text(encoding="utf-8")
+    if "staybehind_ack" not in book:
+        errs.append("book page missing stay-behind acknowledgement")
+    if "Participants age 3+" not in book:
+        errs.append("book page missing preferred participant label")
+    if "Children age 0–2" not in book and "Children age 0-2" not in book:
+        errs.append("book page missing free-child label")
+
     sn = (ROOT / "freeport-snorkelling-excursions/index.html").read_text(encoding="utf-8")
     if "Ben" not in sn or "Blue Hole" not in sn:
         errs.append("snorkel page missing Blue Hole vs Ben's Cave clarification")
 
-    # Port Lucaya not labelled as cruise pier in port guide
     port = (ROOT / "freeport-cruise-port-guide/index.html").read_text(encoding="utf-8")
     if "Not the same place as Port Lucaya" not in port and "not the same" not in port.lower():
         if "Port Lucaya" in port and "Lucayan Harbour" in port:
@@ -170,15 +187,18 @@ def errors() -> list[str]:
         else:
             errs.append("port guide missing Lucayan Harbour vs Port Lucaya distinction")
 
-    # Fake hour itinerary check on one-day
     od = (ROOT / "one-day-in-freeport-from-a-cruise-ship/index.html").read_text(encoding="utf-8")
     if re.search(r"\b0?8:00\b|\b10:00\b|\b16:00\b", od):
         errs.append("one-day page still has fake clock times")
 
-    # CSS present
     css = ROOT / "css" / "site.css"
     if css.exists() and css.stat().st_size < 1000:
         errs.append("css/site.css looks too small")
+
+    commercial = (ROOT / "js/commercial-config.js").read_text(encoding="utf-8")
+    for leak in ("CAFPGARDEN", "SEG_MANUAL", "info@wowatour"):
+        if leak in commercial:
+            errs.append(f"commercial-config leak {leak}")
 
     return errs
 
@@ -190,7 +210,7 @@ def main() -> int:
         for e in errs:
             print(f"  - {e}")
         return 1
-    print("QA OK — Freeport Phase 19B checks passed")
+    print("QA OK — Freeport Phase 19D checks passed")
     return 0
 
 

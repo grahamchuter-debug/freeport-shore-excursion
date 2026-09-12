@@ -1,4 +1,7 @@
 scripts
+docs
+shared
+workers
 images/quarantine
 images/review
 __pycache__

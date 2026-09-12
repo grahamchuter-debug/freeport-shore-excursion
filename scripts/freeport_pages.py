@@ -192,9 +192,9 @@ def home_page() -> str:
 
 {editorial_cta(
     "See Grand Bahama without overpacking the day",
-    "Garden and city-style outings are often the simplest land-based way to get island context. Explore that tour type on our nature and comparison pages — booking is not live on this site yet.",
-    "/freeport-nature-garden-tours",
-    "Explore this type of tour",
+    "Garden of the Groves & Freeport City Tour is available to request online — pay to request, confirmation follows separately.",
+    "/book/garden-of-the-groves-city-tour",
+    "Request this tour",
 )}
 
 <section class="py-16 cta-gradient">
@@ -248,7 +248,7 @@ def best_page() -> str:
     main = f"""
 <section class="pt-10 pb-4 bg-white">
   <div class="max-w-3xl mx-auto px-4 text-center">
-    <p class="text-gray-600 text-sm leading-relaxed">This page compares <strong>styles of Freeport shore excursion</strong>, not a scored product catalogue. Operators, meeting points, and inclusions vary — confirm live details before you travel. We do not publish live prices or booking forms here.</p>
+    <p class="text-gray-600 text-sm leading-relaxed">This page compares <strong>styles of Freeport shore excursion</strong>, not a scored product catalogue. One tour — Garden of the Groves &amp; Freeport City Tour — can be requested online. Other styles remain editorial guidance.</p>
   </div>
 </section>
 <section class="pb-8 bg-white"><div class="max-w-7xl mx-auto px-4">{_snap_common(**{"Best for": "Matching one plan to your usable hours"})}</div></section>
@@ -321,9 +321,9 @@ def best_page() -> str:
 
 {editorial_cta(
     "Garden and city-style Freeport days",
-    "If you want a straightforward land-based introduction to Freeport and Port Lucaya, explore Garden of the Groves / city tour styles on the nature page. Editorial guidance only — no live booking on this site.",
-    "/freeport-nature-garden-tours",
-    "Explore this type of tour",
+    "If you want a straightforward land-based introduction to Freeport and Port Lucaya, you can request Garden of the Groves & Freeport City Tour online.",
+    "/book/garden-of-the-groves-city-tour",
+    "Request this tour",
 )}
 """
     return page_shell(
@@ -425,9 +425,9 @@ def one_day_page() -> str:
 
 {editorial_cta(
     "Garden / city as a short or half-day plan",
-    "If your usable hours favour land sightseeing over boats, explore Garden of the Groves and Freeport city-style tour themes. Editorial only — booking is not live here.",
-    "/freeport-nature-garden-tours",
-    "Explore this type of tour",
+    "If your usable hours favour land sightseeing over boats, request Garden of the Groves & Freeport City Tour online — payment creates a booking request, not instant confirmation.",
+    "/book/garden-of-the-groves-city-tour",
+    "Request this tour",
 )}
 """
     return page_shell(
@@ -668,10 +668,10 @@ def nature_page() -> str:
       </article>
     </div>
     {editorial_cta(
-        "Explore Garden / city tour styles",
-        "Garden of the Groves and Freeport city-style days are often the cleanest land introduction for cruise guests. Editorial guidance only — no live booking or prices on this site.",
-        "/best-freeport-shore-excursions",
-        "Explore this type of tour",
+        "Request Garden of the Groves & Freeport City Tour",
+        "Pay securely to request this tour online. Confirmation is emailed separately after we arrange your places — payment does not confirm the excursion.",
+        "/book/garden-of-the-groves-city-tour",
+        "Request this tour",
     )}
     <div class="max-w-3xl mx-auto px-4">
       {related_links(RELATED_CORE)}
@@ -817,7 +817,7 @@ def contact_page() -> str:
     <h2 class="text-2xl font-display font-bold text-gray-900 mb-4">Email</h2>
     <p class="text-gray-600 leading-relaxed mb-4">Write to <a class="text-ocean-600 font-semibold" href="mailto:{EMAIL}">{EMAIL}</a>.</p>
     <p class="text-gray-600 leading-relaxed mb-4">Please include your ship date and the page you are asking about. Do not send payment card details by email.</p>
-    <p class="text-sm text-gray-500">This site is an editorial planning guide. Online booking is not live in this phase.</p>
+    <p class="text-sm text-gray-500">You can request Garden of the Groves &amp; Freeport City Tour online. Other Freeport products remain editorial-only for now.</p>
     """
     return page_shell(
         title="Contact | Freeport Shore Excursion",
